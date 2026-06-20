@@ -44,9 +44,9 @@ plant-disease-detection/
 
 | Notebook | Backbone | Dataset | Classes |
 |---|---|---|---|
-| `efficientnetb0_training.ipynb` | EfficientNetB0 (ImageNet) | PlantVillage — **color** (Kaggle: `abdallahalidev/plantvillage-dataset`) | 38 |
-| `mobilenetv2_training.ipynb` | MobileNetV2 (ImageNet) | PlantVillage — **color** (Kaggle: `abdallahalidev/plantvillage-dataset`) | 38 |
-| `resnet50_training.ipynb` | ResNet50 (ImageNet) | PlantVillage (Kaggle: `emmarex/plantdisease`) — Pepper/Potato/Tomato only | 15 |
+| `efficientnetb0.ipynb` | EfficientNetB0 (ImageNet) | PlantVillage — **color** (Kaggle: `abdallahalidev/plantvillage-dataset`) | 38 |
+| `mobilenetv2.ipynb` | MobileNetV2 (ImageNet) | PlantVillage — **color** (Kaggle: `abdallahalidev/plantvillage-dataset`) | 38 |
+| `resnet50.ipynb` | ResNet50 (ImageNet) | PlantVillage (Kaggle: `emmarex/plantdisease`) — Pepper/Potato/Tomato only | 15 |
 
 ⚠️ **Important:** ResNet50 was trained on a *different, smaller* dataset (15 classes, only 3 crop types) than EfficientNetB0/MobileNetV2 (38 classes, 14 crop types). Its results are **not directly comparable** to the other two — see `REPORT.md` for the full breakdown.
 
@@ -69,7 +69,7 @@ All three notebooks follow the same recipe:
 ## ⚙️ Setup & Installation
 
 ```bash
-git clone <https://github.com/Imran-Ghafoor594/plant_disease_detection.git>
+git clone https://github.com/Imran-Ghafoor594/plant_disease_detection.git
 cd plant-disease-detection
 
 python -m venv venv
@@ -119,16 +119,9 @@ For `*___healthy` classes, use a "no disease detected" style entry (`severity: "
 
 ---
 
-## 🐛 Known issues found during review
-
-1. ~~Class-label mismatch bug in `app.py`~~ — **fixed**: the original hardcoded `CLASS_NAMES` list was missing `"Potato___healthy"` (37 entries instead of 38), which would've shifted ~23 classes to the wrong label. The current `app.py` loads `CLASS_NAMES` from `class_names.json` instead of hardcoding it, so this can't happen again.
-2. `app.py` and `index.html` were duplicated in the originally uploaded files — the versions in this repo are the single, de-duplicated, updated copies (now with model-selection support — see below).
-3. `treatments.json` is missing from the files provided — needs to be added (see schema above).
-4. ~~EfficientNetB0 fine-tuning notebook only showed 3/15 epochs~~ — **resolved**: the notebook was re-run top-to-bottom and now shows a complete, internally-consistent 15-epoch fine-tuning run (98% final accuracy). Make sure the model file in `app/models/efficientnetb0.keras` is exported from this corrected run.
-
 ---
 
-## 🔀 Model Selection Dropdown
+## Model Selection Dropdown
 
 `app.py`, `index.html`, `app.js`, and `style.css` have been updated so the user can **pick which model runs the prediction** from a dropdown in the upload panel, instead of the app being hardcoded to one model:
 
@@ -157,7 +150,7 @@ Full breakdown, per-class metrics, and the **MobileNetV2 vs EfficientNetB0 compa
 
 ---
 
-## 📌 Tech Stack
+## Tech Stack
 - **Training:** TensorFlow / Keras, scikit-learn, OpenCV, seaborn, matplotlib
 - **Backend:** Flask
 - **Frontend:** HTML, CSS, vanilla JavaScript
