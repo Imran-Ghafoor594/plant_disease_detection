@@ -58,18 +58,48 @@
         <p class="model-select-hint" id="modelHint">Highest accuracy — recommended for most cases.</p>
       </div>
 
-      <div class="drop-zone" id="dropZone">
-        <div class="drop-icon">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <rect x="4" y="4" width="40" height="40" rx="8" fill="#1e3d1e" stroke="#4a7c59" stroke-width="1.5" stroke-dasharray="5 3"/>
-            <path d="M24 14v14M17 21l7-7 7 7" stroke="#a8d5b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 34h20" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <p class="drop-title">Drag & drop leaf photo</p>
-        <p class="drop-sub">or click to browse</p>
-        <input type="file" id="fileInput" accept="image/*" hidden />
+      <!-- Source Tabs: Upload vs Camera -->
+      <div class="source-tabs">
+        <button class="source-tab active" id="tabUpload" data-mode="upload" type="button">📁 Upload Photo</button>
+        <button class="source-tab" id="tabCamera" data-mode="camera" type="button">📷 Use Camera</button>
       </div>
+
+      <!-- Upload Source -->
+      <div class="source-panel" id="uploadSourcePanel">
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect x="4" y="4" width="40" height="40" rx="8" fill="#1e3d1e" stroke="#4a7c59" stroke-width="1.5" stroke-dasharray="5 3"/>
+              <path d="M24 14v14M17 21l7-7 7 7" stroke="#a8d5b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 34h20" stroke="#4a7c59" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="drop-title">Drag & drop leaf photo</p>
+          <p class="drop-sub">or click to browse</p>
+          <input type="file" id="fileInput" accept="image/*" hidden />
+        </div>
+      </div>
+
+      <!-- Camera Source -->
+      <div class="source-panel" id="cameraSourcePanel" style="display:none;">
+        <div class="camera-view" id="cameraView">
+          <video id="cameraVideo" autoplay playsinline muted></video>
+          <div class="camera-frame-guide" id="cameraFrameGuide"></div>
+          <p class="camera-status" id="cameraStatus">Position the leaf in frame</p>
+          <p class="camera-error" id="cameraError" style="display:none;"></p>
+        </div>
+        <div class="camera-controls">
+          <button class="btn-camera-action" id="switchCameraBtn" type="button" title="Switch camera">⟲</button>
+          <button class="btn-capture" id="captureBtn" type="button" title="Capture photo"></button>
+          <button class="btn-camera-action" id="retryCameraBtn" type="button" title="Retry camera" style="display:none;">↻</button>
+        </div>
+        <label class="auto-capture-toggle">
+          <input type="checkbox" id="autoCaptureToggle" checked />
+          <span>Auto-capture when the image is sharp & well-lit</span>
+        </label>
+      </div>
+
+      <canvas id="captureCanvas" style="display:none;"></canvas>
 
       <!-- Preview -->
       <div class="image-preview" id="imagePreview" style="display:none;">
