@@ -141,14 +141,3 @@ If a true 3-way comparison is needed, **ResNet50 should be retrained on the same
 | ResNet50 | PlantVillage (subset) | 15 | 23.6M | 90.1 MB | 96% | Reference only — not comparable (easier task) |
 
 ---
-
-## 8. Limitations & Future Work
-
-- ~~Re-run EfficientNetB0 fine-tuning fully~~ ✅ Done — corrected notebook now shows a complete, consistent 15-epoch fine-tuning run (98% accuracy).
-- ~~Fix the class-label mismatch bug in `app.py`~~ ✅ Done — `app.py` now loads `CLASS_NAMES` from `class_names.json` instead of a hardcoded list, so the missing-`Potato___healthy` bug can't recur.
-- ~~Let the deployed app use the better-performing model~~ ✅ Done — `app.py` now offers both EfficientNetB0 and MobileNetV2 via a dropdown, defaulting to EfficientNetB0.
-- Retrain ResNet50 on the full 38-class color dataset for a true 3-way comparison.
-- `treatments.json` needs to be created/completed with entries for all 38 classes (see `README.md` for the schema).
-- Make sure the `.keras` files placed in `app/models/` are exported from the corrected, fully-trained notebooks (not earlier undertrained checkpoints).
-- Consider exporting the chosen model to **TensorFlow Lite** if mobile/on-device inference is ever needed — this is where MobileNetV2's size/speed advantage would matter more.
-- Add a held-out **test set** (separate from the validation set used for model selection) for a less biased final accuracy estimate.
